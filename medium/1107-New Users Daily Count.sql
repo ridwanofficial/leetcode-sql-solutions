@@ -3,7 +3,7 @@ with cte as (
         user_id,
         min(activity_date) as first_login
     from
-        traffic_1107
+        traffic
     where
         activity = 'login'
     group by
