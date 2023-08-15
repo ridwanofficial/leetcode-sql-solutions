@@ -47,7 +47,10 @@ from
 where
     next_year is not null
     and order_num + next_order >= 3
-    and year + 1 = next_year -------------soluton 2 ------------------------------------------------------
+    and year + 1 = next_year ------------- ------------------------------------------------------
+    ----------------------------------- solution 2-------------------------
+    ---------
+    ------------------
     with cte as (
         select
             product_id,

@@ -21,7 +21,9 @@ where
     next_date is not null
     and (next_date - purchase_date) <= 7
 order by
-    user_id -- ************************solution 2 ****************************
+    user_id -- ***********************
+    -----* * * * * * * * * * * * * * * * * * * * * **solution 2 ****************************
+    ---------------------------
 select
     distinct p.user_id
 from
