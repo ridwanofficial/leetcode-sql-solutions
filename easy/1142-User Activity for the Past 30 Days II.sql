@@ -10,16 +10,10 @@ with cte as(
         user_id,
         activity_date
 ),
-cte1 as(
-    select
-        user_id,
-        count(*)
-    from
-        cte
-    group by
-        user_id
-)
 select
-    round(avg(count), 2) as average_sessions_per_user
+    round(
+        CAST(count(*) AS NUMERIC) / count(distinct user_id),
+        2
+    ) as average_sessions_per_user
 from
-    cte1
+    cte
