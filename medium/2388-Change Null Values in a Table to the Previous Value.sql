@@ -3,7 +3,7 @@ with cte as (
         *,
         row_number() over() as rnk
     from
-        Coffee_Shop_2388
+        Coffee_Shop
 ),
 cte2 as (
     select

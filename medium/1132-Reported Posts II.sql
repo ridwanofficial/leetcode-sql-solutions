@@ -15,7 +15,7 @@ with cte as(
         COUNT(*) AS DAILY_TOTAL_SPAM_REPORTED
     from
         actions a
-        left join removals_1132 r on a.post_id = r.post_id
+        left join removals r on a.post_id = r.post_id
     where
         action = 'report'
         and extra = 'spam'

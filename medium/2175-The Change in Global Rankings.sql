@@ -13,8 +13,8 @@ WITH cte AS (
                 name
         ) AS rnk_points
     FROM
-        team_points_2175 t
-        JOIN points_change_2175 p ON t.team_id = p.team_id
+        team_points t
+        JOIN points_change p ON t.team_id = p.team_id
 )
 SELECT
     team_id,

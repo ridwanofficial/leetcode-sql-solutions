@@ -3,19 +3,19 @@ with cte as (
         contest_id,
         gold_medal as user_id
     from
-        contests_1811
+        contests
     union
     select
         contest_id,
         silver_medal as user_id
     from
-        contests_1811
+        contests
     union
     select
         contest_id,
         bronz_medal as user_id
     from
-        contests_1811
+        contests
 ),
 cte1 as (
     select
@@ -53,7 +53,7 @@ cte4 as(
     select
         distinct gold_medal as user_id
     from
-        contests_1811
+        contests
     group by
         gold_medal
     having
@@ -75,4 +75,4 @@ select
     mail
 from
     cte5 c
-    join users_1811 u on c.user_id = u.user_id
+    join users u on c.user_id = u.user_id

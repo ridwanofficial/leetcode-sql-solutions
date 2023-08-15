@@ -3,7 +3,7 @@ with cte as(
         *,
         row_number() over() as serial
     from
-        point_2d_612
+        point_2d
 )
 select
     ROUND(

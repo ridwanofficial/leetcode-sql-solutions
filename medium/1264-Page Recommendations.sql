@@ -2,7 +2,7 @@ with cte as (
     select
         *
     from
-        friendship_1264
+        friendship
     where
         user_id1 = 1
         or user_id2 = 1
@@ -26,7 +26,7 @@ cte2 as (
     select
         page_id
     from
-        likes_1264
+        likes
     where
         user_id in (
             select
@@ -38,7 +38,7 @@ cte2 as (
     select
         page_id
     from
-        likes_1264
+        likes
     where
         user_id = 1
     order by

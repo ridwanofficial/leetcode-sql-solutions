@@ -2,7 +2,7 @@ with cte as (
     select
         candidate_id
     from
-        vote_574
+        vote
     group by
         candidate_id
     order by
@@ -14,4 +14,4 @@ select
     name
 from
     cte v
-    join candidate_574 c on v.candidate_id = c.id
+    join candidate c on v.candidate_id = c.id

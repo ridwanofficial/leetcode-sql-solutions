@@ -5,7 +5,7 @@ with cte as(
         amount
     from
         salary s
-        join employee_615 e on s.employee_id = e.employee_id
+        join employee e on s.employee_id = e.employee_id
 ),
 cte1 as(
     SELECT

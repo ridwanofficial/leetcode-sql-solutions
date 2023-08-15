@@ -10,7 +10,7 @@ with cte as(
                 second_col desc
         ) as s_rnk
     FROM
-        data_2159
+        data
 )
 select
     f.first_col,

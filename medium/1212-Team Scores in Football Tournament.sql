@@ -13,7 +13,7 @@ with cte as (
             ELSE 0
         END as guest_points
     from
-        matches_1212
+        matches
 ),
 cte1 as (
     select
@@ -34,7 +34,7 @@ select
     coalesce(sum(point), 0) as num_points
 from
     cte1 c
-    right join teams_1212 t using(team_id)
+    right join teams t using(team_id)
 group by
     t.team_name
 order by
