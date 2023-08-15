@@ -15,7 +15,7 @@ with cte as (
             end
         ) as approved_amount
     from
-        Transactions_1205
+        Transactions
     group by
         mon,
         country
@@ -27,8 +27,8 @@ cte1 as (
         count(*) as chargeback_count,
         sum(amount) as chargeback_amount
     from
-        Chargebacks_1205 c
-        join Transactions_1205 t on c.trans_id = t.id
+        Chargebacks c
+        join Transactions t on c.trans_id = t.id
     group by
         TO_CHAR(c.charge_date, 'YYYY-MM'),
         country
