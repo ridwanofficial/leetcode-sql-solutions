@@ -1,14 +1,17 @@
 select
+    p.product_id,
+    quantity,
+    price
 from
-    purchases_2362
-    join Products_2362 p using(product_id)
+    purchases
+    join Products p using(product_id)
 where
     p.product_id = (
         select
             invoice_id
         from
-            purchases_2362
-            join Products_2362 using(product_id)
+            purchases
+            join Products using(product_id)
         group by
             invoice_id
         order by
