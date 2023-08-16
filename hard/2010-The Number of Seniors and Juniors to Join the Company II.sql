@@ -7,7 +7,7 @@ with cte as(
                 salary
         ) as sum_salary
     from
-        candidates_2010
+        candidates
 ),
 cte1 as(
     select
@@ -28,7 +28,7 @@ cte2 as (
     where
         sum_salary <= (
             select
-                70000 - max(sum_salary)
+                70000 - coalesce(max(sum_salary), 0)
             from
                 cte1
         )
