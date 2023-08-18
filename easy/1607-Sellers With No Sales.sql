@@ -2,12 +2,12 @@ with cte as (
     select
         distinct seller_id
     from
-        Orders_1607
+        Orders
     except
     select
         distinct seller_id
     from
-        Orders_1607
+        Orders
     where
         EXTRACT(
             YEAR
@@ -19,4 +19,4 @@ select
     seller_name
 from
     cte
-    join seller_1607 using(seller_id)
+    join seller using(seller_id)

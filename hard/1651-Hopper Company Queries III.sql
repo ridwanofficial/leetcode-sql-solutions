@@ -22,8 +22,8 @@ cte as(
         round(sum(ride_distance), 2) AS average_ride_distance,
         round(sum(ride_duration), 2) AS average_ride_duration
     FROM
-        Accepted_Rides_1651 ar
-        JOIN Rides_1651 r ON ar.ride_id = r.ride_id
+        Accepted_Rides ar
+        JOIN Rides r ON ar.ride_id = r.ride_id
     WHERE
         requested_at >= '2020-01-01'
         AND requested_at <= '2020-12-31'
