@@ -1,80 +1,80 @@
-WITH cte AS (
-    SELECT
+with cte as (
+    select
         *,
-        COUNT(*) OVER(PARTITION BY user_id, spend_date) AS total
-    FROM
-        Spending_1127
+        count(*) over(partition by user_id, spend_date) as total
+    from
+        Spending
 ),
-cte1 AS (
-    SELECT
+cte1 as(
+    select
         spend_date,
-        SUM(
-            CASE
-                WHEN total = 2 THEN amount
-                ELSE 0
-            END
-        ) AS boths,
-        SUM(
-            CASE
-                WHEN total = 2 THEN 1
-                ELSE 0
-            END
-        ) AS bothsUser,
-        SUM(
-            CASE
-                WHEN total = 1
-                AND platform = 'desktop' THEN amount
-                ELSE 0
-            END
-        ) AS desktop,
-        SUM(
-            CASE
-                WHEN total = 1
-                AND platform = 'desktop' THEN 1
-                ELSE 0
-            END
-        ) AS desktopUser,
-        SUM(
-            CASE
-                WHEN total = 1
-                AND platform = 'mobile' THEN amount
-                ELSE 0
-            END
-        ) AS mobile,
-        SUM(
-            CASE
-                WHEN total = 1
-                AND platform = 'mobile' THEN 1
-                ELSE 0
-            END
-        ) AS mobileUser
-    FROM
+        sum(
+            case
+                when total = 2 then amount
+                else 0
+            end
+        ) as "boths",
+        count(
+            distinct case
+                when total = 2 then user_id
+                else null
+            end
+        ) as bothsUser,
+        sum(
+            case
+                when total = 1
+                and platform = 'desktop' then amount
+                else 0
+            end
+        ) as "desktop",
+        count(
+            distinct case
+                when total = 1
+                and platform = 'desktop' then user_id
+                else null
+            end
+        ) as desktopUser,
+        sum(
+            case
+                when total = 1
+                and platform = 'mobile' then amount
+                else 0
+            end
+        ) as "mobile",
+        count(
+            distinct case
+                when total = 1
+                and platform = 'mobile' then user_id
+                else null
+            end
+        ) as mobileuser
+    from
         cte
-    GROUP BY
+    group by
         spend_date
 )
-SELECT
+select
     spend_date,
-    'desktop' AS platform,
-    desktop AS total_amount,
-    desktopUser AS total_users
-FROM
+    'desktop' as platform,
+    desktop as total_amount,
+    desktopUser as total_users
+from
     cte1
-UNION
-ALL
-SELECT
+union
+all
+select
     spend_date,
-    'mobile' AS platform,
-    mobile AS total_amount,
-    mobileUser AS total_users
-FROM
+    'mobile' as platform,
+    mobile as total_amount,
+    mobileUser as total_users
+from
     cte1
-UNION
-ALL
-SELECT
+union
+all
+select
     spend_date,
-    'both' AS platform,
-    boths AS total_amount,
-    bothsUser AS total_users
-FROM
-    cte1;
+    'both' as platform,
+    boths as total_amount,
+    bothsUser as total_users
+from
+    cte1
