@@ -48,11 +48,35 @@ cte3 as(
         (visit - previous_visit) as transactions_count
     from
         cte2
+),
+cte4 as(
+    select
+        transactions_count,
+        count(*) as visits_count
+    from
+        cte3
+    group by
+        transactions_count
+),
+AllTransactionCounts AS (
+    SELECT
+        DISTINCT transactions_count
+    FROM
+        generate_series(
+            0,
+            (
+                SELECT
+                    MAX(transactions_count)
+                FROM
+                    cte4
+            )
+        ) AS transactions_count
 )
 select
     transactions_count,
-    count(*) as visits_count
+    coalesce(visits_count, 0) as visits_count
 from
-    cte3
-group by
+    AllTransactionCounts
+    left join cte4 using(transactions_count)
+order by
     transactions_count
