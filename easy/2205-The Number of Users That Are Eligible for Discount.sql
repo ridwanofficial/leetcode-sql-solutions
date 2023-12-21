@@ -1,8 +1,8 @@
-select
-    distinct title
+select distinct
+    title
 from
     Content
-    join TV_Program using(content_id)
+    join TV_Program using (content_id)
 WHERE
     Kids_content = 'Y'
     AND EXTRACT(
