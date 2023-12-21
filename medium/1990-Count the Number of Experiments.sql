@@ -1,33 +1,34 @@
-with cte as (
-    select
-        platform,
-        experiment_name,
-        count(*) as num_experiments
-    from
-        Experiments
-    group by
-        platform,
-        experiment_name
-),
-cte1 as (
-    select
-        distinct platform
-    from
-        Experiments
-),
-cte2 as (
-    select
-        distinct experiment_name
-    from
-        Experiments
-),
-cte3 as (
-    select
-        *
-    from
-        cte1
-        join cte2 on true
-)
+with
+    cte as (
+        select
+            platform,
+            experiment_name,
+            count(*) as num_experiments
+        from
+            Experiments
+        group by
+            platform,
+            experiment_name
+    ),
+    cte1 as (
+        select distinct
+            platform
+        from
+            Experiments
+    ),
+    cte2 as (
+        select distinct
+            experiment_name
+        from
+            Experiments
+    ),
+    cte3 as (
+        select
+            *
+        from
+            cte1
+            join cte2 on true
+    )
 select
     c1.platform,
     c1.experiment_name,

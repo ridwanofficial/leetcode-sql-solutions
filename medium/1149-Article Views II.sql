@@ -1,5 +1,5 @@
-SELECT
-    DISTINCT viewer_id AS id
+SELECT DISTINCT
+    viewer_id AS id
 FROM
     Views
 GROUP BY

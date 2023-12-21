@@ -15,6 +15,4 @@ order by
             when action = 'show' then 1
             else 0
         end
-    ) desc
-limit
-    1
+    ) desc limit 1

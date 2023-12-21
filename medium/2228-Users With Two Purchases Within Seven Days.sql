@@ -1,20 +1,22 @@
 -- ************************solution 1 ****************************
-with cte as (
-    select
-        *,
-        lead(purchase_date) over(
-            partition by user_id
-            order by
-                purchase_date
-        ) as next_date
-    from
-        Purchases
-    order by
-        user_id,
-        purchase_date
-)
-select
-    distinct user_id
+with
+    cte as (
+        select
+            *,
+            lead(purchase_date) over (
+                partition by
+                    user_id
+                order by
+                    purchase_date
+            ) as next_date
+        from
+            Purchases
+        order by
+            user_id,
+            purchase_date
+    )
+select distinct
+    user_id
 from
     cte
 where
@@ -24,13 +26,12 @@ order by
     user_id -- ***********************
     -----* * * * * * * * * * * * * * * * * * * * * **solution 2 ****************************
     ---------------------------
-select
-    distinct p.user_id
+select distinct
+    p.user_id
 from
     Purchases p
     join Purchases p1 on p.user_id = p1.user_id
     and p.purchase_id <> p1.purchase_id
-    and (p.purchase_date - p1.purchase_date) between 0
-    and 7
+    and (p.purchase_date - p1.purchase_date) between 0 and 7
 order by
     p.user_id

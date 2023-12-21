@@ -1,10 +1,11 @@
-with cte as (
-    select
-        *
-    from
-        purchases
-        join Products using(product_id)
-)
+with
+    cte as (
+        select
+            *
+        from
+            purchases
+            join Products using (product_id)
+    )
 select
     product_id,
     quantity,
@@ -21,7 +22,5 @@ where
             invoice_id
         order by
             sum(quantity * price) desc,
-            invoice_id
-        limit
-            1
+            invoice_id limit 1
     )

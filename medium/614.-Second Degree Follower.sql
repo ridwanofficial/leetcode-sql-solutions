@@ -1,18 +1,19 @@
-with cte as(
-    select
-        followee,
-        count(*) as num
-    from
-        Follow
-    group by
-        followee
-),
-cte1 as (
-    select
-        distinct follower
-    from
-        Follow
-)
+with
+    cte as (
+        select
+            followee,
+            count(*) as num
+        from
+            Follow
+        group by
+            followee
+    ),
+    cte1 as (
+        select distinct
+            follower
+        from
+            Follow
+    )
 select
     follower,
     num

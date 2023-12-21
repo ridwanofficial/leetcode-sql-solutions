@@ -1,27 +1,28 @@
-with cte as (
-    select
-        e.id as id,
-        e.month as single_month,
-        e1.salary as cumulative_salary,
-        rank() over(
-            partition by e.id
-            order by
-                e.month desc
-        ) as rnk
-    from
-        Employee e
-        join Employee e1 on e.id = e1.id
-        and e.month - e1.month between 0
-        and 2
-),
-cte1 as(
-    select
-        *
-    from
-        cte
-    where
-        rnk <> 1
-)
+with
+    cte as (
+        select
+            e.id as id,
+            e.month as single_month,
+            e1.salary as cumulative_salary,
+            rank() over (
+                partition by
+                    e.id
+                order by
+                    e.month desc
+            ) as rnk
+        from
+            Employee e
+            join Employee e1 on e.id = e1.id
+            and e.month - e1.month between 0 and 2
+    ),
+    cte1 as (
+        select
+            *
+        from
+            cte
+        where
+            rnk <> 1
+    )
 select
     id,
     single_month as month,
@@ -38,18 +39,20 @@ order by
     -------------------------------------- ------------------- -------------------
     ---------------------------solution 2-----------------------
     -------------
-    with cte5 as(
+with
+    cte5 as (
         select
             *,
-            rank() over(
-                partition by id
+            rank() over (
+                partition by
+                    id
                 order by
                     month desc
             ) as rnk
         from
             Employee
     ),
-    cte1 as(
+    cte1 as (
         select
             *
         from
