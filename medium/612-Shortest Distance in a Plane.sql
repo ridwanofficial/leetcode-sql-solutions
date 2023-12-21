@@ -35,3 +35,29 @@ from
     cte
 order by
     distance limit 1
+
+
+    --- efficient , grouping best on coordinate
+
+
+
+    with
+    cte as (
+        select
+            round(
+                sqrt(power((p.x - p1.x), 2) + power((p.y - p1.y), 2))::numeric,
+                2
+            ) AS distance
+        from
+            point_2d_612 p
+            join point_2d_612 p1 on ( p.x < p1.x
+		or ( p.x = p1.x and p.y < p1.y) )
+    )
+ 	 
+select
+    distance as shortest
+from
+    cte
+order by
+    distance
+    limit 1
