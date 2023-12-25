@@ -1,0 +1,16 @@
+with cte as (
+    select
+        distinct sub_id as post_id
+    from
+        submissions_1241
+    where
+        parent_id is null
+) 
+select
+    c.post_id,
+    count(distinct sub_id) as number_of_comments
+from
+    cte c
+    left join submissions_1241 s on c.post_id = s.parent_id
+group by
+    c.post_id
